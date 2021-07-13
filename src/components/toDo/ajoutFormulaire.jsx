@@ -1,35 +1,34 @@
+import React, { Component } from 'react';
+import {nanoid} from 'nanoid';
+
 import { useState } from "react";
+// npm install --save prop-types
 import PropTypes from 'prop-types';
 import style from './monStyle.module.css';
 
-// import data from './data.json';
-
 const AjoutFormulaire = ( props ) => {
-
-    //const [maListe, setMaListe ] = useState( data );
 
     const [ nomTache, setNomTache ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ priorite, setPriorite ] = useState("normal");
-    const [ estFini, setEstFini ] = useState(false);
-
 
     const envoiFormulaire = e => {
-        e.preventDefault();
+        e.preventDefault(); // Empecher le comportement par defaut (recharge de la page à l'envoi du formulaire )
 
+        // const { nomTache, description, priorite } = this.state ;
+        
+        // Envoi des données
         const data = {
+            id: nanoid(),
             nomTache: nomTache,
             description: description,
             priorite: priorite,
-            estFini : estFini
+            estFini : false
         }
-    
-        //let copy = [ ...data];
-        // console.log(data);
-        // props.propsdata(data);
+        props.pourNouvelleTache(data);
     }
 
-
+    // Au clique je récupère les valeurs de l'input .........
     const manipulerNom = e => {
         setNomTache(e.target.value);    
     }
@@ -66,23 +65,14 @@ const AjoutFormulaire = ( props ) => {
                 <input type="submit" value="ajouter"/>
             </div>
         </form>
-        {/* <div>
-            {maListe.map( todo => {
-                return (
-                    <div todo={todo}></div>
-                )
-            })}
-        </div> */}
         </>
     )
 }
 
-AjoutFormulaire.defaultProps = {
-    propsdata: () => {} // boucle
-}
-
+// Validation des types ( string , int...)
 AjoutFormulaire.propType = {
-    propsdata: PropTypes.func
+    // creerNomVariable : type = fonction
+    pourNouvelleTache: PropTypes.func
 }
 
 export default AjoutFormulaire;

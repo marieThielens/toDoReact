@@ -1,28 +1,22 @@
-import AjoutFormulaire from "./ajoutFormulaire";
-import { useState } from "react";
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+
 import ToDoItem from "./toDoItem";
 
-import data from './data.json';
+const ToDoList = (props) => {
 
-const ToDoList = () => {
+    // Génerer le rendu visuel d'une collection ( convertir obj js en jsx)
+    const maListe = props.maListe.map(
+        // key obligatoire = identifier , copie de mon tableau
+        data => <ToDoItem  key={ data.id } {...data} />
+    );
 
-   // const { nomTache, description, priorite, estFini } = props;
-
-    const [maListe, setMaListe ] = useState( data );
-
-    //const tachesJSX = props.
     return(
         <>
-        <AjoutFormulaire  />
         <h2>Liste des tâches</h2>
         <ul>
-            <li>
-                { maListe.map( todo => {
-                    return ( <ToDoItem  todo={todo} />)           
-                    }    
-                )}
-            </li>
+            {/* Ma collection */}
+            { maListe }
         </ul>
         </>
     )
